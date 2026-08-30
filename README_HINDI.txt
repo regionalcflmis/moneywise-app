@@ -1,4 +1,4 @@
-MONEYWISE CFL MONITORING - FINAL PWA v4.5.3
+MONEYWISE CFL MONITORING - FINAL PWA v4.5.4
 ============================================================
 
 CURRENT LIVE APPS SCRIPT URL
@@ -53,8 +53,8 @@ icons/                    Android/iOS PWA icons
 .nojekyll                  Static Pages safety file
 
 FINAL VERSION
-PWA Shell: 4.5.3-pwa
-Backend package: MoneyWise CFL Monitoring v4.5.3 HOLIDAY + WEEKLY OFF + LEAVE
+PWA Shell: 4.5.4-pwa
+Backend package: MoneyWise CFL Monitoring v4.5.4 HOLIDAY + WEEKLY OFF + LEAVE
 
 AGAR GITHUB PAGES PAR INDEX.HTML + 404.HTML PEHLE SE LIVE HAIN
 - Current Pages source ko badalne ki zarurat nahi, agar branch/root deployment already working hai.

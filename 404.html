@@ -86,6 +86,7 @@
         const q=new URLSearchParams(location.search);
         q.delete('pwa');
         q.forEach((v,k)=>u.searchParams.append(k,v));
+        u.searchParams.set('_mw_pwa','4.5.4');
         if(location.hash)u.hash=location.hash;
         return u.toString();
       }
