@@ -1,14 +1,14 @@
-const CACHE='moneywise-pwa-shell-v4.7.0-r3';
+const CACHE='moneywise-pwa-shell-v5.5.2-r1';
 const CORE=[
   './',
   './index.html',
   './404.html',
-  './config.js?v=4703',
-  './manifest.webmanifest?v=4703',
+  './config.js?v=5521',
+  './manifest.webmanifest?v=5521',
   './offline.html',
-  './icon-192.png?v=4703',
-  './icon-512.png?v=4703',
-  './apple-touch-icon.png?v=4703'
+  './icon-192.png?v=5521',
+  './icon-512.png?v=5521',
+  './apple-touch-icon.png?v=5521'
 ];
 
 self.addEventListener('install',event=>{
