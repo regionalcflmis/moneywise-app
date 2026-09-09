@@ -22,7 +22,7 @@ IMPORTANT GITHUB STEPS
 7. If an installed old PWA still opens the dashboard, remove that old home-screen/app shortcut once and install again after opening v5.6.2.
 
 TARGET APPS SCRIPT:
-https://script.google.com/macros/s/AKfycbyWeFRIbiQx5iWkCRR6BJiRtzA4Wp4HNTVVaQzntacWv9YU1DHnaqxvlGns6LPtZk4K/exec
+https://script.google.com/macros/s/AKfycbwcYHem2VbmiWqkZy2961tjbO1rscVpOkPxkYo521BVO86KJnNWg4vGjLJf6mYxXbTf/exec
 
 FULL ICONS INCLUDED: icon-192.png, icon-512.png, apple-touch-icon.png
 Upload all ZIP files directly to repository root.

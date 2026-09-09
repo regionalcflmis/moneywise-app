@@ -3,7 +3,7 @@
   "name": "MoneyWise CFL Monitoring",
   "short_name": "MoneyWise CFL",
   "description": "MoneyWise CFL Monitoring portal launcher",
-  "start_url": "./reset.html?v=5731",
+  "start_url": "./reset.html?v=5741",
   "scope": "./",
   "display": "standalone",
   "background_color": "#eef3f8",

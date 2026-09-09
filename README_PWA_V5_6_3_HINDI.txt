@@ -5,7 +5,7 @@ Test URL:
 https://regionalcflmis.github.io/moneywise-app/?v=5701
 
 v5.7.0 turant current Apps Script deployment par redirect karta hai:
-https://script.google.com/macros/s/AKfycbyWeFRIbiQx5iWkCRR6BJiRtzA4Wp4HNTVVaQzntacWv9YU1DHnaqxvlGns6LPtZk4K/exec
+https://script.google.com/macros/s/AKfycbwcYHem2VbmiWqkZy2961tjbO1rscVpOkPxkYo521BVO86KJnNWg4vGjLJf6mYxXbTf/exec
 
 Agar installed PWA purana v5.5.3 dikhaye:
 1. Purana installed shortcut/app remove karein.
