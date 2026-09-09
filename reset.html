@@ -1,13 +1,20 @@
 <!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Reset MoneyWise PWA</title><style>body{font-family:Arial;padding:32px;background:#eef3f8}</style></head>
-<body><h2>Resetting MoneyWise PWA…</h2><p id="s">Please wait.</p>
+<body><h2>Resetting MoneyWise PWA…</h2><p id="s">Removing old cached launcher.</p>
 <script>
 (async()=>{
   try{
-    if('serviceWorker' in navigator){const rs=await navigator.serviceWorker.getRegistrations();await Promise.all(rs.map(r=>r.unregister()));}
-    if(window.caches){const ks=await caches.keys();await Promise.all(ks.map(k=>caches.delete(k)));}
+    if('serviceWorker' in navigator){
+      const rs=await navigator.serviceWorker.getRegistrations();
+      await Promise.all(rs.map(r=>r.unregister()));
+    }
+    if(window.caches){
+      const ks=await caches.keys();
+      await Promise.all(ks.map(k=>caches.delete(k)));
+    }
+    try{localStorage.clear();sessionStorage.clear();}catch(e){}
   }catch(e){}
-  document.getElementById('s').textContent='Reset complete. Opening install page…';
-  setTimeout(()=>location.replace('./?v=5751&t='+Date.now()),350);
+  document.getElementById('s').textContent='Reset complete. Opening fresh install page…';
+  setTimeout(()=>location.replace('./?v=5811&t='+Date.now()),400);
 })();
 </script></body></html>

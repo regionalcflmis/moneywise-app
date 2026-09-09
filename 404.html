@@ -9,104 +9,140 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
   <meta name="apple-mobile-web-app-title" content="MoneyWise CFL">
   <meta name="application-name" content="MoneyWise CFL Monitoring">
-  <link rel="manifest" href="./manifest.webmanifest?v=5751">
-  <link rel="icon" type="image/png" sizes="192x192" href="./icon-192.png?v=5751">
-  <link rel="icon" type="image/png" sizes="512x512" href="./icon-512.png?v=5751">
-  <link rel="apple-touch-icon" href="./apple-touch-icon.png?v=5751">
+  <link rel="manifest" href="./manifest.webmanifest?v=5811">
+  <link rel="icon" type="image/png" sizes="192x192" href="./icon-192.png?v=5811">
+  <link rel="icon" type="image/png" sizes="512x512" href="./icon-512.png?v=5811">
+  <link rel="apple-touch-icon" href="./apple-touch-icon.png?v=5811">
   <title>MoneyWise CFL Monitoring</title>
   <style>
     *{box-sizing:border-box}
-    html,body{margin:0;min-height:100%;font-family:Arial,sans-serif;background:#eef3f8;color:#15324a}
-    .wrap{min-height:100vh;display:grid;place-items:center;padding:22px}
+    html,body{margin:0;width:100%;height:100%;font-family:Arial,sans-serif;background:#eef3f8;color:#15324a;overflow:hidden}
+    #launcher{height:100%;display:grid;place-items:center;padding:22px}
     .card{width:min(560px,100%);background:#fff;border-radius:20px;padding:30px;box-shadow:0 12px 38px rgba(24,62,92,.14);text-align:center}
     .logo{width:88px;height:88px;border-radius:20px;margin:0 auto 16px;display:block}
-    h1{font-size:28px;margin:8px 0 8px;color:#0b3f68}
+    h1{font-size:28px;margin:8px 0;color:#0b3f68}
     .muted{color:#60758a;line-height:1.5}
     .version{font-size:13px;color:#7a8c9d;margin:8px 0 18px}
     .actions{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-top:18px}
-    button,a.btn{appearance:none;border:0;border-radius:11px;padding:13px 18px;font-weight:700;font-size:15px;cursor:pointer;text-decoration:none}
+    button{appearance:none;border:0;border-radius:11px;padding:13px 18px;font-weight:700;font-size:15px;cursor:pointer}
     .primary{background:#0b5cab;color:#fff}
     .success{background:#18864b;color:#fff}
     .outline{background:#fff;color:#0b5cab;border:1px solid #8eb9df}
     #installBtn{display:none}
     .note{margin-top:18px;padding:12px 14px;border-radius:12px;background:#f4f8fc;font-size:13px;color:#52697e;text-align:left}
-    .ok{color:#13753d;font-weight:700}
+
+    #appShell{display:none;width:100%;height:100%;background:white}
+    #appFrame{width:100%;height:100%;border:0;display:block;background:white}
+    #shellTop{display:none}
+    .shell-error{position:fixed;inset:auto 12px 12px 12px;z-index:20;background:#fff4e5;border:1px solid #efb45b;border-radius:10px;padding:10px 12px;font-size:13px}
   </style>
 </head>
 <body>
-<div class="wrap">
+
+<section id="launcher">
   <main class="card">
-    <img class="logo" src="./icon-192.png?v=5751" alt="MoneyWise">
+    <img class="logo" src="./icon-192.png?v=5811" alt="MoneyWise">
     <h1>MoneyWise CFL Monitoring</h1>
-    <div class="muted">Install the MoneyWise app, or open the Monitoring Login in your browser.</div>
-    <div class="version">PWA v5.7.5</div>
+    <div class="muted">Install the MoneyWise app, then run Monitoring Login inside the standalone app window.</div>
+    <div class="version">PWA v5.8.1</div>
 
     <div class="actions">
       <button id="installBtn" class="success">Install MoneyWise App</button>
-      <a class="btn primary" href="https://script.google.com/macros/s/AKfycbwcYHem2VbmiWqkZy2961tjbO1rscVpOkPxkYo521BVO86KJnNWg4vGjLJf6mYxXbTf/exec?pwa=5751">Open Monitoring Login</a>
+      <button id="openBtn" class="primary">Open Monitoring App</button>
     </div>
 
     <div id="status" class="note">
-      If the Install button is not visible yet, wait a few seconds. Chrome shows it only after the PWA installability check completes.
+      The Monitoring app now opens inside the PWA shell. It will not redirect the installed app to the script.google.com browser view.
     </div>
   </main>
-</div>
+</section>
+
+<section id="appShell">
+  <iframe
+    id="appFrame"
+    title="MoneyWise CFL Monitoring"
+    allow="camera; geolocation; microphone; clipboard-read; clipboard-write"
+    referrerpolicy="strict-origin-when-cross-origin">
+  </iframe>
+</section>
 
 <script>
+const APP_URL="https://script.google.com/macros/s/AKfycbwcYHem2VbmiWqkZy2961tjbO1rscVpOkPxkYo521BVO86KJnNWg4vGjLJf6mYxXbTf/exec";
 let deferredInstallPrompt=null;
+let frameStarted=false;
+
+const launcher=document.getElementById('launcher');
+const appShell=document.getElementById('appShell');
+const frame=document.getElementById('appFrame');
 const installBtn=document.getElementById('installBtn');
+const openBtn=document.getElementById('openBtn');
 const statusBox=document.getElementById('status');
 
 function isStandalone(){
   return window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone===true;
 }
 
+function showMonitoringApp(){
+  launcher.style.display='none';
+  appShell.style.display='block';
+  if(!frameStarted){
+    frameStarted=true;
+    frame.src=APP_URL+'?pwa=5811&embed=1&t='+Date.now();
+  }
+}
+
 window.addEventListener('beforeinstallprompt',e=>{
   e.preventDefault();
   deferredInstallPrompt=e;
   installBtn.style.display='inline-block';
-  statusBox.innerHTML='<span class="ok">App is ready to install.</span> Click “Install MoneyWise App”.';
+  statusBox.innerHTML='<b>App is ready to install.</b> Click “Install MoneyWise App”.';
 });
 
 window.addEventListener('appinstalled',()=>{
   deferredInstallPrompt=null;
   installBtn.style.display='none';
-  statusBox.innerHTML='<span class="ok">MoneyWise App installed successfully.</span> You can now open it from your desktop/home screen.';
+  statusBox.innerHTML='<b>MoneyWise installed successfully.</b> Open it from desktop/home screen.';
 });
 
 installBtn.addEventListener('click',async()=>{
   if(!deferredInstallPrompt){
-    statusBox.textContent='Install prompt is not available yet. Use Chrome menu → Install app / Add to Home screen.';
+    statusBox.textContent='Install prompt is not available yet. Use Chrome/Edge menu → Install app / Add to Home screen.';
     return;
   }
   deferredInstallPrompt.prompt();
   try{
     const choice=await deferredInstallPrompt.userChoice;
-    if(choice&&choice.outcome==='accepted'){
-      statusBox.innerHTML='<span class="ok">Installation accepted.</span>';
-    } else {
-      statusBox.textContent='Installation was cancelled.';
-    }
+    statusBox.textContent=(choice&&choice.outcome==='accepted')
+      ? 'Installation accepted. Open the installed MoneyWise app from your desktop/home screen.'
+      : 'Installation was cancelled.';
   }catch(e){}
   deferredInstallPrompt=null;
 });
 
+openBtn.addEventListener('click',showMonitoringApp);
+
 if('serviceWorker' in navigator){
   window.addEventListener('load',async()=>{
     try{
-      await navigator.serviceWorker.register('./sw.js?v=5751',{scope:'./'});
-      statusBox.dataset.sw='ready';
+      await navigator.serviceWorker.register('./sw.js?v=5811',{scope:'./'});
     }catch(e){
-      statusBox.textContent='Service worker registration failed. Refresh once and try again.';
+      statusBox.textContent='PWA service worker could not register. Refresh once and try again.';
     }
   });
 }
 
-// When launched as an installed PWA, go straight to Monitoring Login.
+// Installed app opens directly into the embedded Monitoring application.
 if(isStandalone()){
-  statusBox.textContent='Installed app detected. Opening Monitoring Login…';
-  setTimeout(()=>location.replace("https://script.google.com/macros/s/AKfycbwcYHem2VbmiWqkZy2961tjbO1rscVpOkPxkYo521BVO86KJnNWg4vGjLJf6mYxXbTf/exec"+'?pwa=5751&standalone=1'),350);
+  showMonitoringApp();
 }
+
+// If the embedded page cannot load, give an escape hatch without auto-redirect.
+frame.addEventListener('error',()=>{
+  const msg=document.createElement('div');
+  msg.className='shell-error';
+  msg.innerHTML='Monitoring page could not load inside the app. Check internet connection and reopen MoneyWise.';
+  document.body.appendChild(msg);
+});
 </script>
 </body>
 </html>

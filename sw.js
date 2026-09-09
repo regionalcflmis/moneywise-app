@@ -1,4 +1,4 @@
-const CACHE='moneywise-pwa-shell-v5.7.5-r1';
+const CACHE='moneywise-pwa-shell-v5.8.1-r1';
 const SHELL=[
   './',
   './index.html',
@@ -23,7 +23,10 @@ self.addEventListener('activate',event=>{
 self.addEventListener('fetch',event=>{
   const req=event.request;
   const url=new URL(req.url);
+
+  // Never proxy/cache Apps Script. The iframe talks directly to script.google.com.
   if(url.origin!==self.location.origin)return;
+
   event.respondWith(
     fetch(req).then(res=>{
       const copy=res.clone();
