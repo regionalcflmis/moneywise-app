@@ -1,50 +1,13 @@
-<!doctype html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#0b5cab">
-<title>Reset MoneyWise PWA</title>
-<style>
-html,body{margin:0;min-height:100%;font-family:Arial,sans-serif;background:#eef3f8;color:#123}
-.wrap{min-height:100vh;display:grid;place-items:center;padding:24px}
-.card{max-width:560px;background:white;border-radius:18px;padding:30px;box-shadow:0 12px 36px rgba(0,0,0,.12);text-align:center}
-.spinner{width:38px;height:38px;border:4px solid #d9e6f2;border-top-color:#0b5cab;border-radius:50%;margin:0 auto 18px;animation:s .8s linear infinite}
-@keyframes s{to{transform:rotate(360deg)}}
-button,a{display:inline-block;margin:8px;padding:12px 18px;border:0;border-radius:10px;background:#0b5cab;color:white;text-decoration:none;font-weight:700;cursor:pointer}
-.small{font-size:13px;color:#60758a}
-</style>
-</head>
-<body>
-<div class="wrap"><div class="card">
-<div class="spinner"></div>
-<h2>Resetting old MoneyWise dashboard cache</h2>
-<p id="status">Removing old service worker and cached dashboard…</p>
-<div class="small">PWA v5.7.4</div>
-<a id="open" href="https://script.google.com/macros/s/AKfycbwcYHem2VbmiWqkZy2961tjbO1rscVpOkPxkYo521BVO86KJnNWg4vGjLJf6mYxXbTf/exec?pwa=5741">Open Monitoring Login</a>
-</div></div>
+<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Reset MoneyWise PWA</title><style>body{font-family:Arial;padding:32px;background:#eef3f8}</style></head>
+<body><h2>Resetting MoneyWise PWA…</h2><p id="s">Please wait.</p>
 <script>
-(async function(){
-  const status=document.getElementById('status');
-  try {
-    if ('serviceWorker' in navigator) {
-      const regs=await navigator.serviceWorker.getRegistrations();
-      await Promise.all(regs.map(r=>r.unregister()));
-    }
-    if (window.caches) {
-      const keys=await caches.keys();
-      await Promise.all(keys.map(k=>caches.delete(k)));
-    }
-    try {
-      localStorage.clear();
-      sessionStorage.clear();
-    } catch(e) {}
-    status.textContent='Old cache removed. Opening Monitoring Login…';
-  } catch(e) {
-    status.textContent='Opening Monitoring Login…';
-  }
-  setTimeout(()=>window.location.replace("https://script.google.com/macros/s/AKfycbwcYHem2VbmiWqkZy2961tjbO1rscVpOkPxkYo521BVO86KJnNWg4vGjLJf6mYxXbTf/exec?pwa=5741"+'&t='+Date.now()),400);
+(async()=>{
+  try{
+    if('serviceWorker' in navigator){const rs=await navigator.serviceWorker.getRegistrations();await Promise.all(rs.map(r=>r.unregister()));}
+    if(window.caches){const ks=await caches.keys();await Promise.all(ks.map(k=>caches.delete(k)));}
+  }catch(e){}
+  document.getElementById('s').textContent='Reset complete. Opening install page…';
+  setTimeout(()=>location.replace('./?v=5751&t='+Date.now()),350);
 })();
-</script>
-</body>
-</html>
+</script></body></html>

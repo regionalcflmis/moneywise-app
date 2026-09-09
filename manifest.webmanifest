@@ -1,11 +1,12 @@
 {
-  "id": "./",
+  "id": "/moneywise-app/",
   "name": "MoneyWise CFL Monitoring",
   "short_name": "MoneyWise CFL",
-  "description": "MoneyWise CFL Monitoring portal launcher",
-  "start_url": "./reset.html?v=5741",
+  "description": "MoneyWise CFL and Session Monitoring",
+  "start_url": "./?source=pwa&v=5751",
   "scope": "./",
   "display": "standalone",
+  "orientation": "any",
   "background_color": "#eef3f8",
   "theme_color": "#0b5cab",
   "icons": [
